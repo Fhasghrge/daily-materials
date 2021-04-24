@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Input } from "antd";
+import { Input, Skeleton } from "antd";
 import { SearchOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useEventCallback } from "rxjs-hooks";
-
 import { from } from "rxjs";
 import { debounceTime, filter, map, tap, switchAll } from "rxjs/operators";
 import "antd/dist/antd.css";
+
+import '../index.css'
 
 const fackPromise = (msg) => {
   return fetch(
@@ -25,8 +26,8 @@ const LocalHandle = () => {
       map((msg) => {
         return from(fackPromise(msg));
       }),
+      switchAll(),
       tap(() => setLoading(false)),
-      switchAll()
     );
   }, []);
 
@@ -36,11 +37,13 @@ const LocalHandle = () => {
         prefix={loading ? <LoadingOutlined /> : <SearchOutlined />}
         onChange={(e) => handleClick(e.target.value)}
       ></Input>
-      <ul>
-        {results.map((item, index) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+      <Skeleton active loading={loading}>
+        <ul>
+          {results.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      </Skeleton>
     </div>
   );
 };

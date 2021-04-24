@@ -22,7 +22,6 @@ class SearchService {
   resultSource$ = new BehaviorSubject();
   loadingSource$ = new BehaviorSubject(false)
   loading$ = this.loadingSource$.asObservable();
-  // 这种逻辑和视图分离如何， 如何同步loading状态？
   result$ = this.resultSource$.pipe(
     filter((msg) => !!msg),
     tap(() => this.loadingSource$.next(true)),
