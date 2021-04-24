@@ -1,8 +1,10 @@
 import React from 'react'
-import SearchInput from '../src/index'
-
+import SearchInput from '../src/components/splitService'
+import LocalHandle from '../src/components/loacalComponent'
 
 export default {
-  title: 'test'
+  title: 'rxjs-handle-data'
 }
-export const Test =  () => <SearchInput />;
+export const SplitService =  () => <SearchInput />;
+
+export const LocalService = () => <LocalHandle />
